@@ -8,18 +8,22 @@ const App = () => {
 
   // Ref to the feed element to handle scrolling
   const feedRef = useRef(null);
+  // Ref to the input field to control focus/blur
+  const inputRef = useRef(null);
+
   useEffect(() => {
     // Detect when the page is refreshed or closed
     window.onbeforeunload = async () => {
       // Send a request to reset conversation history on the server
       await fetch('http://localhost:8000/reset', { method: 'POST' });
     };
-    
+
     // Clean up the effect when component unmounts
     return () => {
       window.onbeforeunload = null;
     };
   }, []);
+
   const createNewChat = () => {
     setMessage(null);
     setValue('');
@@ -46,7 +50,11 @@ const App = () => {
       const response = await fetch('http://localhost:8000/completions', options);
       const data = await response.json();
       setMessage(data.choices[0].message);
-      
+
+      // Blur the input field after submitting the message (to close the keyboard)
+      if (inputRef.current) {
+        inputRef.current.blur();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -109,6 +117,7 @@ const App = () => {
         <div className="bottom-section">
           <div className="input-container">
             <input
+              ref={inputRef} // Attach the ref to the input field
               value={value}
               onChange={(e) => setValue(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && getMessages()}
