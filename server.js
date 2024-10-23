@@ -1,5 +1,6 @@
 const PORT = 8000;
 const express = require('express');
+const session = require('express-session');
 const cors = require('cors');
 require('dotenv').config();
 const app = express();
@@ -55,6 +56,8 @@ app.post('/completions', async (req, res) => {
 app.post('/reset', (req, res) => {
     conversationHistory = []; // Clear the conversation history
     res.send({ message: 'Conversation history cleared.' });
+    console.log('executed');
+    
 });
 
 app.listen(PORT);

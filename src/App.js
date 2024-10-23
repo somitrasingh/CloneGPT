@@ -8,7 +8,18 @@ const App = () => {
 
   // Ref to the feed element to handle scrolling
   const feedRef = useRef(null);
-
+  useEffect(() => {
+    // Detect when the page is refreshed or closed
+    window.onbeforeunload = async () => {
+      // Send a request to reset conversation history on the server
+      await fetch('http://localhost:8000/reset', { method: 'POST' });
+    };
+    
+    // Clean up the effect when component unmounts
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
   const createNewChat = () => {
     setMessage(null);
     setValue('');
@@ -35,6 +46,7 @@ const App = () => {
       const response = await fetch('http://localhost:8000/completions', options);
       const data = await response.json();
       setMessage(data.choices[0].message);
+      
     } catch (error) {
       console.log(error);
     }
