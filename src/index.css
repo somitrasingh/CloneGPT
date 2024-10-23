@@ -129,11 +129,21 @@ input:focus{
 }
 
 @media (max-width: 768px){
+  .main{
+    padding: 5px;
+  }
   .side-bar{
-    width: 150px;
+    width: 120px;
+    max-width: 120px;
   }
 
   .feed li{
     padding: 10px;
+  }
+  .info{
+    padding: 0;
+  }
+  #submit{
+    bottom: 5px;
   }
 }

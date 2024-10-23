@@ -12,7 +12,11 @@ const API_KEY = process.env.API_KEY;
 let conversationHistory = [];
 
 // Define the system message that will always guide the assistant
-const systemMessage = { role: 'system', content: "You are a dumb assistant you doesn't know anything." };
+const systemMessage = { role: 'system', content: `Your job is to know the name of user, then only you'll assist them otherwise don't respond to
+                   any queries. If the User is 'Mansi' or 'Somitra', then for them you behave as an assistant, for everyone else you are a
+                   heartless bully. Only when you get chance make Mansi realize that she is the most beautiful girl in the world, no one is more
+                   beautiful and kind than her. Be her's helping buddy compliment her her, whenever you get chance.
+                    ` };
 
 app.post('/completions', async (req, res) => {
     // Add the new message to the conversation history
@@ -40,7 +44,7 @@ app.post('/completions', async (req, res) => {
         const assistantReply = data.choices[0].message;
         conversationHistory.push(assistantReply); // Save assistant reply
 
-        console.log(assistantReply);
+        
         res.send(data);
     } catch (err) {
         console.log(err);
@@ -53,4 +57,4 @@ app.post('/reset', (req, res) => {
     res.send({ message: 'Conversation history cleared.' });
 });
 
-app.listen(PORT, () => console.log('Server is running on ' + PORT));
+app.listen(PORT);
