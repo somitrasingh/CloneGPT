@@ -52,6 +52,7 @@ nav{
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  overflow: hidden;
 }
 
 .info{
@@ -93,13 +94,16 @@ input:focus{
 
 #submit{
   position: absolute;
-  bottom: 15px;
-  right: 0;
+  bottom: 10px;
+  right: 10px;
   cursor: pointer;
+  font-size: 1.5rem; /* Make the icon bigger */
+  color: rgba(255, 255, 255, 0.8); /* Adjust the color if needed */
 }
 
 .feed{
-  overflow: scroll;
+  flex-grow: 1; /* Allow the feed to take up the remaining vertical space */
+  overflow-y: auto;
   width: 100%;
   padding: 0;
 
@@ -111,6 +115,7 @@ input:focus{
   width: 100%;
   padding: 20px;
   margin: 20px 0;
+  box-sizing: border-box;
 }
 
 .feed p{
@@ -121,4 +126,10 @@ input:focus{
 
 .feed p.role{
   min-width: 100px;
+}
+
+@media (max-width: 768px){
+  .side-bar{
+    width: 150px;
+  }
 }

@@ -17,14 +17,14 @@ app.post('/completions', async (req, res) => {
         body: JSON.stringify({
             model : "gpt-4o-mini",
             messages: [{role: "user", content: req.body.message}],
-            max_tokens: 100,
+            max_tokens: 500,
         })
 
     }
     try{
         const response = await fetch('https://api.openai.com/v1/chat/completions', options)
         const data = await response.json()
-        console.log(data);
+        console.log(data.choices[0].message);
         res.send(data)
         
         
