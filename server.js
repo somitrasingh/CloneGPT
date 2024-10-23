@@ -56,7 +56,7 @@ app.post('/completions', async (req, res) => {
 app.post('/reset', (req, res) => {
     conversationHistory = []; // Clear the conversation history
     res.send({ message: 'Conversation history cleared.' });
-    console.log('executed');
+    
     
 });
 
