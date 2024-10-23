@@ -132,4 +132,8 @@ input:focus{
   .side-bar{
     width: 150px;
   }
+
+  .feed li{
+    padding: 10px;
+  }
 }

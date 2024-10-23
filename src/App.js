@@ -31,7 +31,7 @@ const App = () => {
       const response = await fetch('http://localhost:8000/completions', options)
       const data = await response.json()
       setMessage(data.choices[0].message)
-      setValue("")
+      
     } catch (error) {
       console.log(error)
       
@@ -72,7 +72,7 @@ const App = () => {
         <ul className="history">
           {uniqueTitles?.map((uniqueTitle, index) => <li key = {index} onClick={() => handleClick(uniqueTitle)}>{uniqueTitle}</li>)}
         </ul>
-        <nav>Made by Somitra</nav>
+        <nav>Made by CloseAI</nav>
       </section>
       <section className="main">
         {!currentTitle && <h1>CloneGPT</h1>}
@@ -91,9 +91,9 @@ const App = () => {
             <div id="submit" onClick={getMessages}>➢</div>
           </div>
           <p className="info">
-            chatgpt ye chatgpt wo falana dikahana pata nhi.
-            kya h ye sala chatgpt, log chutiya bane hue h iske
-            peche koi smjho logo ko yrr 
+            Laddu Mutyana Avatara Igina Sanchari Devara
+            Sanchar Madu Ta Bhakt Ramanya Gadkand Madya Raa
+            Avree Laddu Mutya Avree Laddu Mutya
           </p>
         </div>
       </section>

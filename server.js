@@ -1,36 +1,56 @@
-const PORT = 8000
-const express = require('express')
-const cors = require('cors')
-require('dotenv').config()
-const app = express()
-app.use(express.json())
-app.use(cors())
-const API_KEY = process.env.API_KEY
+const PORT = 8000;
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+const API_KEY = process.env.API_KEY;
+
+// Create a storage for conversation history
+let conversationHistory = [];
+
+// Define the system message that will always guide the assistant
+const systemMessage = { role: 'system', content: "You are a dumb assistant you doesn't know anything." };
 
 app.post('/completions', async (req, res) => {
+    // Add the new message to the conversation history
+    conversationHistory.push({ role: 'user', content: req.body.message });
+
     const options = {
-        method : "POST",
+        method: 'POST',
         headers: {
-            "Authorization": `Bearer ${API_KEY}`,
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${API_KEY}`,
+            'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            model : "gpt-4o-mini",
-            messages: [{role: "user", content: req.body.message}],
+            model: 'gpt-4o-mini',
+            // Always prepend the system message before sending the entire conversation
+            messages: [systemMessage, ...conversationHistory],
             max_tokens: 500,
-        })
+        }),
+    };
 
+    try {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', options);
+        const data = await response.json();
+
+        // Store the assistant's reply to maintain the conversation flow
+        const assistantReply = data.choices[0].message;
+        conversationHistory.push(assistantReply); // Save assistant reply
+
+        console.log(assistantReply);
+        res.send(data);
+    } catch (err) {
+        console.log(err);
     }
-    try{
-        const response = await fetch('https://api.openai.com/v1/chat/completions', options)
-        const data = await response.json()
-        console.log(data.choices[0].message);
-        res.send(data)
-        
-        
-    }catch(err){
-        console.log((err));
-        
-    }
-})
-app.listen(PORT, () => console.log('Server is running on' + PORT))
+});
+
+// Endpoint to reset conversation history
+app.post('/reset', (req, res) => {
+    conversationHistory = []; // Clear the conversation history
+    res.send({ message: 'Conversation history cleared.' });
+});
+
+app.listen(PORT, () => console.log('Server is running on ' + PORT));
