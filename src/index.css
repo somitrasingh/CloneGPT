@@ -138,13 +138,13 @@ input:focus{
 @media (max-width: 768px){
   .main{
     padding: 5px;
-    height: 90vh; /* Make sure no scrolling occurs on mobile */
+    height: 94vh; /* Make sure no scrolling occurs on mobile */
   }
 
   .side-bar{
     width: 120px;
     max-width: 120px;
-    height: 100vh; /* Ensure sidebar takes full height */
+    height: 94vh; /* Ensure sidebar takes full height */
   }
 
   .feed{
