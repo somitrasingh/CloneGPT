@@ -7,24 +7,23 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%; 
-  overflow: hidden; /* Keep hidden for full height control */
+  height: 100%; /* Set body and html to 100% */
+  overflow: hidden; /* Prevent scrolling */
 }
 
 .app{
   background-color: #343541;
   display: flex;
-  flex-direction: column;
-  height: 100vh;
+  height: 100%; /* Make app take full height */
 }
 
 .side-bar{
   background-color: #202123;
+  height: 100vh;
   width: 244px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
 }
 
 button{
@@ -34,7 +33,6 @@ button{
   padding: 10px;
   margin: 10px;
 }
-
 nav{
   border-top: solid 0.5px rgba(255, 255, 255, 0.5);
   padding: 10px;
@@ -44,23 +42,23 @@ nav{
 .history{
   padding: 10px;
   margin: 10px;
-  flex-grow: 1;
-  overflow-y: auto;
+  height: 100%;
 }
 .history li{
   list-style-type: none;
   padding: 15px 0;
-  cursor: pointer;
+  cursor:  pointer ;
 }
 
 .main{
-  flex-grow: 1;
+  height: 100vh; /* Use full viewport height */
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   text-align: center;
+  overflow: hidden; /* Prevent scrolling */
 }
 
 .info{
@@ -106,12 +104,12 @@ input:focus{
   bottom: 10px;
   right: 10px;
   cursor: pointer;
-  font-size: 1.5rem;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem; /* Make the icon bigger */
+  color: rgba(255, 255, 255, 0.8); /* Adjust the color if needed */
 }
 
 .feed{
-  flex-grow: 1;
+  flex-grow: 1; /* Allow the feed to take up the remaining vertical space */
   overflow-y: auto;
   width: 100%;
   padding: 0;
@@ -136,15 +134,33 @@ input:focus{
   min-width: 100px;
 }
 
-@media (max-width: 768px) {
-  .side-bar {
-    width: 80px;
-  }
-  .input-container {
-    max-width: 100%;
+/* Mobile specific styling */
+@media (max-width: 768px){
+  .main{
     padding: 5px;
+    height: 90vh; /* Make sure no scrolling occurs on mobile */
   }
-  .main {
-    padding: 5px;
+
+  .side-bar{
+    width: 120px;
+    max-width: 120px;
+    height: 100vh; /* Ensure sidebar takes full height */
+  }
+
+  .feed{
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  .feed li{
+    padding: 10px;
+  }
+
+  .info{
+    padding: 0;
+  }
+
+  #submit{
+    bottom: 5px;
   }
 }
