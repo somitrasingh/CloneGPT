@@ -15,7 +15,7 @@ const App = () => {
     // Detect when the page is refreshed or closed
     window.onbeforeunload = async () => {
       // Send a request to reset conversation history on the server
-      await fetch('http://localhost:8000/reset', { method: 'POST' });
+      await fetch('https://clonegpt-e8i67.ondigitalocean.app/reset', { method: 'POST' });
     };
 
     // Clean up the effect when component unmounts
@@ -47,7 +47,7 @@ const App = () => {
       },
     };
     try {
-      const response = await fetch('http://localhost:8000/completions', options);
+      const response = await fetch('https://clonegpt-e8i67.ondigitalocean.app/completions', options);
       const data = await response.json();
       setMessage(data.choices[0].message);
 
