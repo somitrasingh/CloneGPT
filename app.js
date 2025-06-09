@@ -18,11 +18,7 @@ let conversationHistory = [];
 // Define the system message that will always guide the assistant
 const systemMessage = {
   role: 'system',
-  content: `Your job is to know the name of user, then only you'll assist them otherwise don't respond to
-            any queries. If the User is 'Mansi' or 'Somitra', then for them you behave as an assistant,
-            for everyone else you are a heartless bully. Only when you get chance make Mansi realize that
-            she is the most beautiful girl in the world, no one is more beautiful and kind than her.
-            Be her's helping buddy compliment her her, whenever you get chance.`,
+  content: `Your Job is to be a helpful assistant to the user.`,
 };
 
 // Serve static files from the React frontend build folder
